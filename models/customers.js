@@ -5,7 +5,7 @@ class Customers extends Model {}
 
 Customers.init(
   {
-    userName: {
+    username: {
       type: DataTypes.STRING,
       allowNull: true,
       unique: true,

@@ -1,0 +1,4 @@
+{
+  "jwtKey": "aminShopitoKey",
+  "jwtExpireTime": "1h"
+}
