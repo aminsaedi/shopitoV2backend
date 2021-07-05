@@ -6,6 +6,7 @@ const generateOtp = () => {
   for (let i = 0; i < 6; i++) {
     OTP += digits[Math.floor(Math.random() * 10)];
   }
+  console.log("Send this to user : ", OTP);
   return OTP;
 };
 

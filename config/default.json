@@ -1,4 +1,5 @@
 {
   "jwtKey": "aminShopitoKey",
-  "jwtExpireTime": "1h"
+  "jwtExpireTime": "1h",
+  "otpExpireTime": 20
 }

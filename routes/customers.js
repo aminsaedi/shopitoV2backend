@@ -2,6 +2,9 @@ const express = require("express");
 const {
   checkCustomerExists,
   registerCustomer,
+  loginCustomer,
+  sendOtp,
+  loginWithOtp,
 } = require("../controllers/customers");
 
 const router = express.Router();
@@ -16,5 +19,17 @@ router.post("/isCustomerExists", checkCustomerExists);
  * return jwt access token
  */
 router.post("/register", registerCustomer);
+
+/**
+ * get {username, password} and generate token if users exists
+ */
+router.post("/loginWithPassword", loginCustomer);
+
+/**
+ * get {mobile} and check otpExpire time and if its valid send otp to user
+ */
+router.post("/sendOtp", sendOtp);
+
+router.post("/loginWithOtp", loginWithOtp);
 
 module.exports = router;

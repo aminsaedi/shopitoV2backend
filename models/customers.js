@@ -10,6 +10,10 @@ Customers.init(
       allowNull: true,
       unique: true,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -26,6 +30,10 @@ Customers.init(
     otp: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    otpExpireTime: {
+      type: DataTypes.DATE,
+      allowNull : true
     },
     wallet: {
       type: DataTypes.INTEGER,
