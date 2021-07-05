@@ -9,6 +9,7 @@
   "author": "amin saedi",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.6.4"
   }
