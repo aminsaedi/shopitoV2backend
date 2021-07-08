@@ -1,5 +1,6 @@
 const Product = require("../models/products");
 const errors = require("../utilities/errors");
+const messages = require("../utilities/messages");
 
 const addNewProduct = async (req, res) => {
   if (
@@ -7,11 +8,13 @@ const addNewProduct = async (req, res) => {
     !req.body.name ||
     !req.body.numberInStock ||
     !req.body.barcode ||
-    !req.body.purchasePrice
+    !req.body.purchasePrice ||
+    !req.body.storeId ||
+    !req.body.categoryId
   )
     return res.status(400).send({
       message:
-        errors.faPriceAndNameAndNumberInStockAndBarcodeAndPurchasePriceAreRequired,
+        errors.faPriceAndNameAndNumberInStockAndBarcodeAndPurchasePriceAndSoreIdAndCategoryAreRequired,
     });
   if (!req.body.storeId)
     return res.status(400).send({ message: errors.faStoreIdIsRequired });
@@ -24,8 +27,8 @@ const addNewProduct = async (req, res) => {
       hasDiscount: req.body.hasDiscount,
       numberInStock: req.body.numberInStock,
       isAvailable: req.body.isAvailable,
-      StoreId: req.body.storeId,
-      CategoryId: req.body.CategoryId,
+      storeId: req.body.storeId,
+      categoryId: req.body.CategoryId,
       barcode: req.body.barcode,
       purchasePrice: req.body.purchasePrice,
     });
@@ -123,10 +126,71 @@ const updateProductName = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  if (!req.params || !req.params.id)
+    return res.status(400).send({ message: errors.faEnterProductId });
+  try {
+    await Product.destroy({ where: { id: req.params.id } });
+    return res.status(200).send({ message: messages.faProductDeleted });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ message: errors.faDeleteProductFailed, error: error.toString() });
+  }
+};
+
+const getProductById = async (req, res) => {
+  if (!req.params || !req.params.id)
+    return res.status(400).send({ message: errors.faEnterProductId });
+  try {
+    const foundedProduct = await Product.findByPk(req.params.id);
+    if (!foundedProduct)
+      return res.status(404).send({ message: errors.faProductNotFound });
+    return res.status(200).send(foundedProduct);
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ message: errors.faUnhandledError, error: error.toString() });
+  }
+};
+
+const getAllProducts = async (req, res) => {
+  const categoryId = req.query?.categoryId;
+  let sort;
+  if (req.query && req.query.sort && Array.isArray(req.query.sort))
+    sort = req.query.sort;
+  else if (req.query && req.query.sort && !Array.isArray(req.query.sort))
+    sort = [req.query.sort];
+  else if (!req.query || !req.query.sort) sort = ["id"];
+  console.log(sort);
+
+  try {
+    const { rows, count } = await Product.findAndCountAll({
+      order: [
+        ...sort.map((i) => [
+          i.toString()[0] === "-"
+            ? i.toString().slice(1, i.toString().length)
+            : i.toString(),
+          i.toString()[0] === "-" ? "DESC" : "ASC",
+        ]),
+      ],
+      where: categoryId ? { categoryId } : {},
+    });
+    return res.set("totalItems", count).status(200).send(rows);
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ message: errors.faUnhandledError, error: error.toString() });
+  }
+};
+
 module.exports = {
   addNewProduct,
   updateProductState,
   updateProductPrice,
   updateProductDiscountState,
   updateProductName,
+  deleteProduct,
+  getProductById,
+  getAllProducts,
 };

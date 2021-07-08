@@ -18,13 +18,16 @@ const errors = {
     "اطلاعات داده شده برای ساخت فروشگاه کامل نیست",
   ],
   faErrorWhileCreatingStore: ["خطا در ایجاد فروشگاه"],
-  faPriceAndNameAndNumberInStockAndBarcodeAndPurchasePriceAreRequired: [
-    "قیمت کالا وارد نشده",
-    "نام کالا وارد نشده",
-    "موجودی محصول وارد نشده است",
-    "بارکد محصول وارد نشده است",
-    "قیمت خرید محصول وارد نشده است",
-  ],
+  faPriceAndNameAndNumberInStockAndBarcodeAndPurchasePriceAndSoreIdAndCategoryAreRequired:
+    [
+      "قیمت کالا وارد نشده",
+      "نام کالا وارد نشده",
+      "موجودی محصول وارد نشده است",
+      "بارکد محصول وارد نشده است",
+      "قیمت خرید محصول وارد نشده است",
+      "آیدی فروشکاه وارد نشده است",
+      "آیدی دسته بندی وارد نشده است",
+    ],
   faAddNewProductFailed: ["ایجاد محصول جدید شکست خورد"],
   faStoreIdIsRequired: ["آیدی فروشگاه داده نشده است."],
   faCategoryNameIsRequired: ["نام دسته بندی ارسال نشده است"],
@@ -43,7 +46,8 @@ const errors = {
   faCategoryNotFound: ["شاخه پیدا نشد"],
   faCAtegoryUpdated: ["دسته بندی به روز شد"],
   faUpdateCategoryFailed: ["حدف دسته بندی شکست خورد"],
-  faRootCategoryNotFound: ["شاخه روت پیدا نشد"]
+  faRootCategoryNotFound: ["شاخه روت پیدا نشد"],
+  faDeleteProductFailed: ["حدف محصول شکست خورد"],
 };
 
 module.exports = errors;

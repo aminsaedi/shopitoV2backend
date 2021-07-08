@@ -6,9 +6,15 @@ const {
   updateProductPrice,
   updateProductDiscountState,
   updateProductName,
+  deleteProduct,
+  getProductById,
+  getAllProducts,
 } = require("../controllers/products");
 
 const router = express.Router();
+
+router.get("/:id", getProductById);
+router.get("/", getAllProducts);
 
 router.post("/", addNewProduct);
 
@@ -19,5 +25,7 @@ router.patch("/price", updateProductPrice);
 router.patch("/discount", updateProductDiscountState);
 
 router.patch("/name", updateProductName);
+
+router.delete("/:id", deleteProduct);
 
 module.exports = router;

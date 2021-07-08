@@ -37,6 +37,6 @@ Store.init(
   { sequelize }
 );
 
-Store.hasMany(Product);
+Store.hasMany(Product, { foreignKey: { name: "storeId" } });
 
 module.exports = Store;
