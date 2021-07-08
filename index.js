@@ -7,5 +7,6 @@ require("./utilities/routes")(app);
 connectToDatabse();
 
 // sequelize.sync({ force: true, alter: true });
+// sequelize.sync();
 
 app.listen(3000, () => console.log(`server started`));
