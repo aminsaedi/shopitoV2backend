@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const moment = require("moment");
 const config = require("config");
 
-const Customers = require("../models/customers");
+const Customer = require("../models/customers");
 const optGenerator = require("../utilities/optGenerator");
 const errors = require("../utilities/errors");
 const messages = require("../utilities/messages");
@@ -14,7 +14,7 @@ const checkCustomerExists = async (req, res) => {
     return res
       .status(400)
       .send({ message: errors.faMobileOrUsernameIsRequierd });
-  const isCustomerFound = await Customers.findOne({
+  const isCustomerFound = await Customer.findOne({
     where: {
       [Op.or]: [{ mobile: req.body.username }, { username: req.body.username }],
     },
@@ -33,7 +33,7 @@ const registerCustomer = async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
     }
-    const createdCustomer = await Customers.create({
+    const createdCustomer = await Customer.create({
       mobile: req.body.mobile,
       username: req.body.username,
       firstName: req.body.firstName,
@@ -41,7 +41,7 @@ const registerCustomer = async (req, res) => {
       password: req.body.password,
     });
     const token = tokenGenerator({
-      id: createdCustomer.id,
+      customerId: createdCustomer.id,
       mobile: createdCustomer.mobile,
     });
     return res.status(200).send(token);
@@ -61,7 +61,7 @@ const loginCustomer = async (req, res) => {
   else if (!req.body.password)
     return res.status(400).send({ message: errors.faPassWordIsRequired });
   try {
-    const foundedCustomer = await Customers.findOne({
+    const foundedCustomer = await Customer.findOne({
       where: {
         [Op.or]: [
           { mobile: req.body.username },
@@ -78,7 +78,7 @@ const loginCustomer = async (req, res) => {
     if (!isPasswordValid)
       return res.status(400).send({ message: errors.faWrongPassword });
     const token = tokenGenerator({
-      id: foundedCustomer.id,
+      customerId: foundedCustomer.id,
       mobile: foundedCustomer.mobile,
     });
     res.status(200).send(token);
@@ -92,7 +92,7 @@ const loginCustomer = async (req, res) => {
 const sendOtp = async (req, res) => {
   if (!req.body.mobile)
     return res.status(400).send({ message: errors.faMobileIsrequired });
-  const foundedCustomer = await Customers.findOne({
+  const foundedCustomer = await Customer.findOne({
     where: { mobile: req.body.mobile },
   });
   if (foundedCustomer.otpExpireTime) {
@@ -121,7 +121,7 @@ const loginWithOtp = async (req, res) => {
     return res.status(400).send({ message: errors.faMobileIsrequired });
   else if (!req.body.otp)
     return res.status(400).send({ message: errors.faOtpIsRequired });
-  const foundedCustomer = await Customers.findOne({
+  const foundedCustomer = await Customer.findOne({
     where: {
       mobile: req.body.username,
     },
@@ -137,7 +137,7 @@ const loginWithOtp = async (req, res) => {
       return res.status(400).send({ message: errors.faOtpIsExpired });
     if (foundedCustomer.otp === req.body.otp) {
       const token = tokenGenerator({
-        id: foundedCustomer.id,
+        customerId: foundedCustomer.id,
         mobile: foundedCustomer.mobile,
       });
       foundedCustomer.otp = null;

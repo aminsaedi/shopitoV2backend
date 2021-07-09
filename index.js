@@ -1,5 +1,6 @@
 const express = require("express");
 const { connectToDatabse, sequelize } = require("./utilities/database");
+const InStoreCustomers = require("./models/inStoreCustomers");
 
 const app = express();
 

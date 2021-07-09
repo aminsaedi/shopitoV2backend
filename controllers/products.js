@@ -156,6 +156,7 @@ const getProductById = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   const categoryId = req.query?.categoryId;
+  const storeId = req.query?.storeId;
   let sort;
   if (req.query && req.query.sort && Array.isArray(req.query.sort))
     sort = req.query.sort;
@@ -174,7 +175,10 @@ const getAllProducts = async (req, res) => {
           i.toString()[0] === "-" ? "DESC" : "ASC",
         ]),
       ],
-      where: categoryId ? { categoryId } : {},
+      where: {
+        ...(categoryId ? { categoryId } : null),
+        ...(storeId ? { storeId } : null),
+      },
     });
     return res.set("totalItems", count).status(200).send(rows);
   } catch (error) {
@@ -182,6 +186,18 @@ const getAllProducts = async (req, res) => {
       .status(500)
       .send({ message: errors.faUnhandledError, error: error.toString() });
   }
+};
+
+const utilFindProductById = async (productId) => {
+  const findedProduct = await Product.findByPk(productId);
+  if (!findedProduct) return null;
+  return findedProduct;
+};
+
+const utilFindProductByBarcode = async (barcode) => {
+  const findedProduct = await Product.findOne({ where: { barcode } });
+  if (!findedProduct) return null;
+  return findedProduct;
 };
 
 module.exports = {
@@ -193,4 +209,6 @@ module.exports = {
   deleteProduct,
   getProductById,
   getAllProducts,
+  utilFindProductById,
+  utilFindProductByBarcode,
 };

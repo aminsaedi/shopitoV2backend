@@ -42,4 +42,10 @@ const getStores = async (req, res) => {
   res.status(200).set("totalItems", count).send(rows);
 };
 
-module.exports = { createStore, getStores };
+const utilFindStoreByBarcode = async (barcode) => {
+  const findedStore = await Store.findOne({ where: { barcode } });
+  if (!findedStore) return null;
+  return findedStore;
+};
+
+module.exports = { createStore, getStores, utilFindStoreByBarcode };

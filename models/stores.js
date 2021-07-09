@@ -33,6 +33,18 @@ Store.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    wallet: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    allowOnlinePAyment: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    allowOfflinePayment: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   { sequelize }
 );

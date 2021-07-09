@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../utilities/database");
 
-class Customers extends Model {}
+class Customer extends Model {}
 
-Customers.init(
+Customer.init(
   {
     username: {
       type: DataTypes.STRING,
@@ -33,7 +33,7 @@ Customers.init(
     },
     otpExpireTime: {
       type: DataTypes.DATE,
-      allowNull : true
+      allowNull: true,
     },
     wallet: {
       type: DataTypes.INTEGER,
@@ -44,4 +44,4 @@ Customers.init(
   { sequelize }
 );
 
-module.exports = Customers;
+module.exports = Customer;

@@ -48,6 +48,52 @@ const errors = {
   faUpdateCategoryFailed: ["حدف دسته بندی شکست خورد"],
   faRootCategoryNotFound: ["شاخه روت پیدا نشد"],
   faDeleteProductFailed: ["حدف محصول شکست خورد"],
+  enNoTokenProvided: ["Token not provided"],
+  enInvalidToken: ["Invalid token"],
+  faCustomerHasActiveShopping: ["شما در حال خرید در یکی از فروشگاه ها میباشید"],
+  faEnterStoreBarcode: ["بارکد فروشگاه را ارسال کنید"],
+  faStoreNotFoundByBarcode: ["فروشگاهی با این بارکد پیدا نشد"],
+  faStartShoppingFailed: ["شروع خرید شکست خورد"],
+  customerDoesntHaveActiveShopping: {
+    fa: "شما خرید در حال انجامی از هیچ یک از فروشگاه ها ندارید",
+    en: "you do not have active shopping in any stores",
+  },
+  enterCartId: {
+    fa: "آیدی سبد خرید ارسال نشده است",
+    en: "please send cartId",
+  },
+  cartNotFound: {
+    fa: "سبد خریدی با این آیدی پیدا نشد",
+    en: "cart not found with this id",
+  },
+  addItemToCartFailed: {
+    fa: "افزوت محصول به سبد خرید شکست خورد",
+    en: "add item to cart failed",
+  },
+  quantityMustBeGraterThanZero: {
+    fa: "کوانتیتی باید بیشتر از صفر باشد(حداقل یک)",
+    en: "quantity must be greter than zero",
+  },
+  couldNotFoundItemInCart: {
+    fa: "کالا در سبد خرید مشاهده نشد",
+    en: "could Not Found Item In Cart",
+  },
+  inOrderToDecrementQuantityShouldBeGreaterThanTwo: {
+    fa: "آیتم موجود است ولی برای کاهش باید حداقل تعداد ۲ عدد باشد (برای حذف از متود مناسب استفاده کنید)",
+    en: "Item exists but quantity should be greater than two (in otder to delete use another method)",
+  },
+  reduceQuantityFaild: {
+    fa: "کاهش تعداد محصول از سبد خرید شکست خورد",
+    en: "failed to reduce cart item",
+  },
+  enterProductBarcode: {
+    fa: "بارکد محصول را ارسال کنید",
+    en: "enter product barcode",
+  },
+  deleteItemFromCartFailed: {
+    fa: "حذف آیتم از سبد خرید شکست خورد",
+    en: "delete item from cart failed",
+  },
 };
 
 module.exports = errors;
