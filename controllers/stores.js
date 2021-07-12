@@ -48,4 +48,15 @@ const utilFindStoreByBarcode = async (barcode) => {
   return findedStore;
 };
 
-module.exports = { createStore, getStores, utilFindStoreByBarcode };
+const utilFindStoreById = async (storeId) => {
+  const findedStore = await Store.findByPk(storeId);
+  if (!findedStore) return null;
+  return findedStore;
+};
+
+module.exports = {
+  createStore,
+  getStores,
+  utilFindStoreByBarcode,
+  utilFindStoreById,
+};

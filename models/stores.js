@@ -37,7 +37,7 @@ Store.init(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
-    allowOnlinePAyment: {
+    allowOnlinePayment: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },

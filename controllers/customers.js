@@ -149,10 +149,17 @@ const loginWithOtp = async (req, res) => {
   }
 };
 
+const utilFindCustomerById = async (customerId) => {
+  const foundedCustomer = await Customer.findByPk(customerId);
+  if (!foundedCustomer) return null;
+  return foundedCustomer;
+};
+
 module.exports = {
   checkCustomerExists,
   registerCustomer,
   loginCustomer,
   sendOtp,
   loginWithOtp,
+  utilFindCustomerById,
 };

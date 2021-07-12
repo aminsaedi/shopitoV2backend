@@ -94,6 +94,18 @@ const errors = {
     fa: "حذف آیتم از سبد خرید شکست خورد",
     en: "delete item from cart failed",
   },
+  storeNotFound: {
+    fa: "فروشگاه پیدا نشد",
+    en: "store not found",
+  },
+  cartIsLock: {
+    fa: "کارت از قبل قفل شده است",
+    en: "cart has been locked",
+  },
+  walletBalanceIsLow: {
+    fa: "موجودی کیف پول شما برای خرید کافی نیست",
+    en: "your wallet balance is less than price of total items in your cart."
+  },
 };
 
 module.exports = errors;

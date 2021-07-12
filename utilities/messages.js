@@ -6,6 +6,10 @@ const messages = {
     fa: "آیتم از سبد خرید حذف شد",
     en: "item delted from cart",
   },
+  shoppingFinishedAndPaiedWithWallet: {
+    fa: "خرید با موفقیت به اتمام رسید و مبلغ از کیف پول شما کم شد",
+    en: "shopping finished successfully and your wallet balance updated",
+  },
 };
 
 module.exports = messages;
