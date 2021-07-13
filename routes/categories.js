@@ -10,6 +10,7 @@ const {
 const router = express.Router();
 
 router.get("/", getCategories);
+
 router.get("/:id", getCategories);
 
 router.post("/", addNewCategory);

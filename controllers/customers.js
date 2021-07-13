@@ -4,7 +4,7 @@ const moment = require("moment");
 const config = require("config");
 
 const Customer = require("../models/customers");
-const optGenerator = require("../utilities/optGenerator");
+const optGenerator = require("../utilities/otpGenerator");
 const errors = require("../utilities/errors");
 const messages = require("../utilities/messages");
 const tokenGenerator = require("../utilities/tokenGenerator");
@@ -90,30 +90,8 @@ const loginCustomer = async (req, res) => {
 };
 
 const sendOtp = async (req, res) => {
-  if (!req.body.mobile)
-    return res.status(400).send({ message: errors.faMobileIsrequired });
-  const foundedCustomer = await Customer.findOne({
-    where: { mobile: req.body.mobile },
-  });
-  if (foundedCustomer.otpExpireTime) {
-    const lastTimeSent = moment(foundedCustomer.otpExpireTime);
-    const diff = lastTimeSent.diff(moment(), "seconds");
-    if (diff > 0)
-      return res.status(429).send({
-        message: errors.faToomanyOtpRequest(diff),
-      });
-  }
-  if (foundedCustomer.otpExpireTime)
-    if (!foundedCustomer)
-      return res.status(404).send({ message: errors.faCustomerNotFound });
-  const otp = optGenerator();
-  foundedCustomer.otpExpireTime = new moment().add(
-    config.get("otpExpireTime"),
-    "seconds"
-  );
-  foundedCustomer.otp = otp;
-  await foundedCustomer.save();
-  return res.status(200).send({ message: messages.faOtpSentToCustomer });
+  
+  
 };
 
 const loginWithOtp = async (req, res) => {

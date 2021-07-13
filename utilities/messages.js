@@ -10,6 +10,10 @@ const messages = {
     fa: "خرید با موفقیت به اتمام رسید و مبلغ از کیف پول شما کم شد",
     en: "shopping finished successfully and your wallet balance updated",
   },
+  otpSend: {
+    fa: "رمز یکبار مصرف ارسال شد.",
+    en: "otp sent",
+  },
 };
 
 module.exports = messages;

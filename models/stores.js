@@ -45,6 +45,14 @@ Store.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    otp: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    otpExpireTime: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   { sequelize }
 );

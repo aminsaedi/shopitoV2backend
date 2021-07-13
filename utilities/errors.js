@@ -104,7 +104,39 @@ const errors = {
   },
   walletBalanceIsLow: {
     fa: "موجودی کیف پول شما برای خرید کافی نیست",
-    en: "your wallet balance is less than price of total items in your cart."
+    en: "your wallet balance is less than price of total items in your cart.",
+  },
+  usernameAndPasswordIsRequired: {
+    fa: "نام کاربری و رمز عبور را وارد کنید",
+    en: "enter username and/or password",
+  },
+  usernameAndOrPasswordIsWrong: {
+    fa: "نام کاربری و یا رمز عبور اشتباه است",
+    en: "username and or password is wrong",
+  },
+  enterAccessLevel: {
+    fa: "سطح دسترسی را وارد کنید",
+    en: "enter access level",
+  },
+  enterOtpOnStoreAdminMobile: {
+    fa: "کد ارسال شده به مدیر فروشگاه را وارد کنید",
+    en: "enter code is sent on store managers mobile",
+  },
+  enterAdminMobileNumber: {
+    fa: "شماره موبایل مدیر فروشگاه را ارسال کنید",
+    en: "Enter sotore manager mobile number",
+  },
+  createStaffFailed: {
+    fa: "ایجاد کاربر شکست خورد",
+    en: "create user failed",
+  },
+  staffNotFound: {
+    fa: "کاربری پیدا نشد",
+    en: "staff not found",
+  },
+  invalidAccessLevel: {
+    fa: "سطح دسترسی معتبر نیست",
+    en: "Invalid access level name.",
   },
 };
 

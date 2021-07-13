@@ -23,6 +23,7 @@ const enums = {
     store: "store",
     customer: "customer",
   },
+  staffAccessLevels: ["manager", "storeKeeper", "cashier"],
 };
 
 module.exports = enums;
