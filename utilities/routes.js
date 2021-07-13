@@ -9,6 +9,8 @@ const wallets = require("../routes/wallets");
 const staffs = require("../routes/staffs");
 
 module.exports = function (app) {
+  app.use(express.static("uploads"));
+  app.use(express.static("public"))
   app.use(express.json());
   app.use("/api/customers", customers);
   app.use("/api/stores", stores);

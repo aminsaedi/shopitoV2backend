@@ -138,6 +138,14 @@ const errors = {
     fa: "سطح دسترسی معتبر نیست",
     en: "Invalid access level name.",
   },
+  imageSizeIsTooLarge: {
+    fa: "حجم فایل بیشتر از حد مجاز میباشد",
+    en: "file size is too large",
+  },
+  imageNotSent: {
+    fa : "عکس ارسال نشده است.",
+    en : "image not sent."
+  },
 };
 
 module.exports = errors;

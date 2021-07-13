@@ -1,8 +1,12 @@
 const Product = require("../models/products");
+const ProductImage = require("../models/productImages");
 const errors = require("../utilities/errors");
 const messages = require("../utilities/messages");
+const config = require("config");
 
 const addNewProduct = async (req, res) => {
+  if (req.file && req.file.size > config.get("maxImageSize"))
+    return res.status(400).send({ message: errors.imageSizeIsTooLarge });
   if (
     !req.body.price ||
     !req.body.name ||
@@ -19,6 +23,12 @@ const addNewProduct = async (req, res) => {
   if (!req.body.storeId)
     return res.status(400).send({ message: errors.faStoreIdIsRequired });
   try {
+    let createdProductImage;
+    if (req.file)
+      createdProductImage = await ProductImage.create({
+        ...req.file,
+      });
+    console.log(createdProductImage);
     const createdProduct = await Product.create({
       name: req.body.name,
       price: req.body.price,
@@ -28,10 +38,15 @@ const addNewProduct = async (req, res) => {
       numberInStock: req.body.numberInStock,
       isAvailable: req.body.isAvailable,
       storeId: req.body.storeId,
-      categoryId: req.body.CategoryId,
+      categoryId: req.body.categoryId,
       barcode: req.body.barcode,
       purchasePrice: req.body.purchasePrice,
+      ...(createdProductImage && createdProductImage.id
+        ? { imageId: createdProductImage.id }
+        : null),
     });
+    createdProductImage &&
+      createdProduct.setDataValue("imageId", createdProductImage.id);
     return res.status(200).send(createdProduct);
   } catch (error) {
     return res
@@ -143,10 +158,12 @@ const getProductById = async (req, res) => {
   if (!req.params || !req.params.id)
     return res.status(400).send({ message: errors.faEnterProductId });
   try {
-    const foundedProduct = await Product.findByPk(req.params.id);
-    if (!foundedProduct)
+    const findedProduct = await Product.findByPk(req.params.id, {
+      include: [ProductImage],
+    });
+    if (!findedProduct)
       return res.status(404).send({ message: errors.faProductNotFound });
-    return res.status(200).send(foundedProduct);
+    return res.status(200).send(findedProduct);
   } catch (error) {
     return res
       .status(500)
@@ -179,6 +196,7 @@ const getAllProducts = async (req, res) => {
         ...(categoryId ? { categoryId } : null),
         ...(storeId ? { storeId } : null),
       },
+      include: [ProductImage],
     });
     return res.set("totalItems", count).status(200).send(rows);
   } catch (error) {
@@ -186,6 +204,26 @@ const getAllProducts = async (req, res) => {
       .status(500)
       .send({ message: errors.faUnhandledError, error: error.toString() });
   }
+};
+
+const updateProductImage = async (req, res) => {
+  if (!req.file) return res.status(400).send({ message: errors.imageNotSent });
+  if (req.file.size > config.get("maxImageSize"))
+    return res.status(400).send({ message: errors.imageSizeIsTooLarge });
+  if (!req.body.productId)
+    return res.status(400).send({ message: errors.faEnterProductId });
+  const findedProduct = await Product.findByPk(req.body.productId);
+  if (!findedProduct)
+    return res.status(404).send({ message: errors.faProductNotFound });
+  createdProductImage = await ProductImage.create({
+    ...req.file,
+  });
+  findedProduct.imageId = createdProductImage.id;
+  await findedProduct.save();
+  const newProduct = await Product.findByPk(req.body.productId, {
+    include: [ProductImage],
+  });
+  return res.status(200).send(newProduct);
 };
 
 const utilFindProductById = async (productId) => {
@@ -209,6 +247,7 @@ module.exports = {
   deleteProduct,
   getProductById,
   getAllProducts,
+  updateProductImage,
   utilFindProductById,
   utilFindProductByBarcode,
 };

@@ -1,5 +1,6 @@
 {
   "jwtKey": "aminShopitoKey",
   "jwtExpireTime": "1h",
-  "otpExpireTime": 20
+  "otpExpireTime": 20,
+  "maxImageSize": 1100000
 }

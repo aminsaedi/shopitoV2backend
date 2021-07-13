@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../utilities/database");
 
-const Store = require("./stores");
+const ProductImage = require("./productImages");
 const Category = require("./Categories");
 
 class Product extends Model {}
@@ -48,7 +48,7 @@ Product.init(
   { sequelize }
 );
 
-// Product.belongsTo()
+Product.belongsTo(ProductImage, {foreignKey : {name : "imageId"}})
 Product.belongsTo(Category, { foreignKey: { name: "categoryId" } });
 
 module.exports = Product;
